@@ -1,8 +1,11 @@
 # electron-pubsub
 
 Pubsub for Electron.
-We only support asynchronous publication. The reason is we are using IPC for communication between different processes and it doesn't support synchronous commuication. See this issue: [https://github.com/electron/electron/issues/5750](Synchronous communication from main process to renderer process)
+
+We only support asynchronous publication. The reason is we are using IPC for communication between different processes and it doesn't support synchronous commuication. Check this issue: [Synchronous communication from main process to renderer process](https://github.com/electron/electron/issues/5750)
+
 Functions are not allowed in arguments because they will be converted to JSON in IPC communication. I am still working it out.
+
 You can use it both in main and renderer process.
 
 ## Usage
