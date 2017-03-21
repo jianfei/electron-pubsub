@@ -1,6 +1,6 @@
 {
   "name": "electron-pubsub",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Pubsub for electron",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,6 @@
   },
   "homepage": "https://github.com/jianfei/electron-pubsub",
   "dependencies": {
-    "electron-is": "^2.4.0",
-    "lodash": "^4.17.4"
+    "electron-is": "^2.4.0"
   }
 }

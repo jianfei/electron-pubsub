@@ -1,4 +1,4 @@
-const is = require('electron-is');
-const pubsub = require(is.main() ? './main.js' : './renderer.js');
+const isMainProcess = process.type === 'browser';
+const pubsub = require(isMainProcess ? './main.js' : './renderer.js');
 
 module.exports = pubsub;

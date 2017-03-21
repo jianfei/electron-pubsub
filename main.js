@@ -1,47 +1,52 @@
 const Emitter = require('events');
 const { ipcMain, BrowserWindow } = require('electron');
-const _ = require('lodash');
 
 const emitter = new Emitter();
 const pushEvent = '__PUBSUB_PUSH__';
 
-ipcMain.on(pushEvent, (event, eventName, ...args) => {
-    broadcast(eventName, ...args);
-});
-
-function subscribe(eventName, callback) {
-    emitter.on(eventName, callback);
-    ipcMain.on(eventName, callback);
-}
-
-function once(eventName, callback) {
-    emitter.once(eventName, callback);
-    ipcMain.once(eventName, callback);
-}
-
-function unsubscribe(eventName, callback) {
-    if (callback) {
-        emitter.removeListener(eventName, callback);
-        ipcMain.removeListener(eventName, callback);
-    }
-    else {
-        emitter.removeAllListeners(eventName);
-        ipcMain.removeAllListeners(eventName);
-    }
-}
-
-function publish(eventName, ...args) {
-    emitter.emit(eventName, ...args);
-    broadcast(eventName, ...args);
+function prefix(eventName) {
+    return `__PUBSUB__${eventName}`;
 }
 
 function broadcast(eventName, ...args) {
-    _.each(BrowserWindow.getAllWindows(), (win) => {
+    BrowserWindow.getAllWindows().forEach((win) => {
         win.webContents.send(eventName, ...args);
     });
 }
 
+function init() {
+    ipcMain.on(pushEvent, (event, eventName, ...args) => {
+        broadcast(eventName, ...args);
+    });
+}
+
+function subscribe(eventName, callback) {
+    emitter.on(prefix(eventName), callback);
+    ipcMain.on(prefix(eventName), callback);
+}
+
+function once(eventName, callback) {
+    emitter.once(prefix(eventName), callback);
+    ipcMain.once(prefix(eventName), callback);
+}
+
+function unsubscribe(eventName, callback) {
+    if (callback) {
+        emitter.removeListener(prefix(eventName), callback);
+        ipcMain.removeListener(prefix(eventName), callback);
+    } else {
+        emitter.removeAllListeners(prefix(eventName));
+        ipcMain.removeAllListeners(prefix(eventName));
+    }
+}
+
+function publish(eventName, ...args) {
+    emitter.emit(prefix(eventName), ...args);
+    broadcast(prefix(eventName), ...args);
+}
+
 module.exports = {
+    init,
     subscribe,
     once,
     unsubscribe,
