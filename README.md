@@ -10,7 +10,7 @@ You can use it both in main and renderer process.
 
 ## Usage
 ```javascript
-const { subscribe, once, unsubscribe, publish} = require('electron-pubsub');
+const { subscribe, once, unsubscribe, publish } = require('electron-pubsub');
 
 subscribe('a', (event, ...args) => {
     // do something here.

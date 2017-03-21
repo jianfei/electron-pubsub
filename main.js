@@ -3,9 +3,9 @@ const { ipcMain, BrowserWindow } = require('electron');
 const _ = require('lodash');
 
 const emitter = new Emitter();
-const pubsubEventName = '__PUBSUB_EVENT__';
+const pushEvent = '__PUBSUB_PUSH__';
 
-ipcMain.on(pubsubEventName, (event, eventName, ...args) => {
+ipcMain.on(pushEvent, (event, eventName, ...args) => {
     broadcast(eventName, ...args);
 });
 

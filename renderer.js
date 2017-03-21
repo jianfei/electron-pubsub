@@ -1,7 +1,7 @@
 const { ipcRenderer } = require('electron');
 const _ = require('lodash');
 
-const pubsubEventName = '__PUBSUB_EVENT__';
+const pushEvent = '__PUBSUB_PUSH__';
 
 function subscribe(eventName, callback) {
     ipcRenderer.on(eventName, callback);
@@ -21,10 +21,8 @@ function unsubscribe(eventName, callback) {
 }
 
 function publish(eventName, ...args) {
-    let promise = new Promise((resolve, reject) => {
-        ipcRenderer.send(eventName, { resolve, reject }, ...args);
-        ipcRenderer.send(pubsubEventName, eventName, { resolve, reject }, ...args);
-    });
+    ipcRenderer.send(eventName, ...args);
+    ipcRenderer.send(pushEvent, eventName, ...args);
 }
 
 module.exports = {

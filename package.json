@@ -1,6 +1,6 @@
 {
   "name": "electron-pubsub",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Pubsub for electron",
   "main": "index.js",
   "scripts": {
