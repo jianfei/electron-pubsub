@@ -2,14 +2,26 @@
   "name": "electron-pubsub",
   "version": "0.0.1",
   "description": "Pubsub for electron",
-  "main": "pubsub.js",
+  "main": "index.js",
   "scripts": {
-    "test": "electron ."
+    "test": "xo"
   },
   "keywords": [
     "electron",
     "pubsub"
   ],
   "author": "Jianfei",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jianfei/electron-pubsub.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jianfei/electron-pubsub/issues"
+  },
+  "homepage": "https://github.com/jianfei/electron-pubsub",
+  "dependencies": {
+    "electron-is": "^2.4.0",
+    "lodash": "^4.17.4"
+  }
 }
