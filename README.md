@@ -42,9 +42,19 @@ pubsub.unsubscribe('myTopic');
 pubsub.clearAllSubscriptions();
 ```
 
+### Hierarchical addressing
+
+```javascript
+pubsub.subscribe('a', myFunc1);
+pubsub.subscribe('a.b', myFunc2);
+pubsub.subscribe('a.b.c', myFunc3);
+
+pubsub.unsubscribe('a.b');
+```
+
 ### Use promises
 
-```
+```javascript
 pubsub.publish('myTopic', 'some arguments')
     .then(onSuccess)
     .catch(onFailure);
