@@ -1,4 +1,12 @@
 const isMainProcess = process.type === 'browser';
-const pubsub = require(isMainProcess ? './main.js' : './renderer.js');
+
+let pubsub;
+
+if (isMainProcess) {
+    pubsub = require('./pubsub');
+} else {
+    const { remote } = require('electron');
+    pubsub = remote.require(`${__dirname}/pubsub`);
+}
 
 module.exports = pubsub;
